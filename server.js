@@ -18,6 +18,20 @@ var onRequest = function handleRequest(req, res) {
       res.write(page);
       res.end();
     });
+    // if url is /assets/styles.css then render styles.css
+  } else if (req.url === '/assets/styles.css') {
+    fs.readFile('./assets/styles.css', function(err, page) {
+      res.writeHead(200, { 'Content-Type': 'text/css'});
+      res.write(page);
+      res.end();
+    });
+  // if url is /assets/javascript.js then render javascript.js
+  } else if (req.url === '/assets/javascript.js') {
+    fs.readFile('./assets/javascript.js', function(err, page) {
+      res.writeHead(200, { 'Content-Type': 'text/js'});
+      res.write(page);
+      res.end();
+    });
   // if url is another than / or /supage or index.html then send a 404
   } else {
     res.end('there is no stuff in here');
