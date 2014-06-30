@@ -6,16 +6,22 @@ var onRequest = function handleRequest(req, res) {
 
   // if url is / or /index then render index.html
   if (req.url === '/') {
-    res.end('this is the homepage');
-  } else if (req.url === '/subpage') {
-    res.end('this is the supage');
-  };
-
-
+    fs.readFile('./index.html', function(err, page) {
+      res.writeHead(200, { 'Content-Type': 'text/html'});
+      res.write(page);
+      res.end();
+    });
   // if url is /subpage then render subpage.html
+  } else if (req.url === '/subpage') {
+    fs.readFile('./subpage.html', function(err, page) {
+      res.writeHead(200, { 'Content-Type': 'text/html'});
+      res.write(page);
+      res.end();
+    });
   // if url is another than / or /supage or index.html then send a 404
-  res.end('you requested '+ req.url);
+  } else {
+    res.end('there is no stuff in here');
+  };
 };
 
 server.listen(3000).on('request', onRequest);
-
